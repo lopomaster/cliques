@@ -1,19 +1,12 @@
-require_relative 'cliques/version'
 
+require_relative 'cliques/connected_developers'
 require_relative '../services/twitter_service'
 require_relative '../services/github_service'
-require_relative 'cliques/connected_developers'
 
-module Cliques
-  class Error < StandardError; end
+class Cliques
 
   def initialize file
     @file = file
-    @developers ||= read_file
-  end
-
-  def connected_developers
-    ConnectedDevelopers.new developers, TwitterClient.get, GithubClient.get
   end
 
   private

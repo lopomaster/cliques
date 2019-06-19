@@ -9,15 +9,8 @@ class ConnectedDevelopers
     @twitter_client = twitter_client
     @github_client = github_client
     @developers = developers
-    @organizations = {}
-    @graph ||= generate_graph
   end
 
   private
-
-  def generate_graph
-
-  end
-
 
 end

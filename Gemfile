@@ -1,4 +1,14 @@
+# Gemfile
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in cliques.gemspec
-gemspec
+group :development, :test do
+  gem "rspec"
+  gem 'simplecov', require: false
+end
+
+group :development, :test, :production do
+  gem "twitter"
+  gem "dotenv"
+  gem "octokit", "~> 4.0"
+  gem "concurrent-ruby", require: 'concurrent'
+end
