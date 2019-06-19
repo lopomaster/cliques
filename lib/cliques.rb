@@ -1,7 +1,7 @@
-require 'cliques/version'
+require_relative 'cliques/version'
 
-require_relative '../services/twitter_config'
-require_relative '../services/github_config'
+require_relative '../services/twitter_service'
+require_relative '../services/github_service'
 require_relative 'cliques/connected_developers'
 
 module Cliques
