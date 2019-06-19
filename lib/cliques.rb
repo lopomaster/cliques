@@ -1,9 +1,25 @@
-require "cliques/version"
+require 'cliques/version'
+
+require_relative '../services/twitter_config'
+require_relative '../services/github_config'
+require_relative 'developer_cliques/connected_developers'
 
 module Cliques
   class Error < StandardError; end
 
+  def initialize file
+    @file = file
+    @developers ||= read_file
+  end
 
+  def connected_developers
+    ConnectedDevelopers.new developers, TwitterClient.get, GithubClient.get
+  end
 
+  private
+
+  def read_file
+    File.readlines(@file).map{ |line| line.strip }
+  end
 
 end
