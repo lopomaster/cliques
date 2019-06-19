@@ -2,7 +2,7 @@ require 'cliques/version'
 
 require_relative '../services/twitter_config'
 require_relative '../services/github_config'
-require_relative 'developer_cliques/connected_developers'
+require_relative 'cliques/connected_developers'
 
 module Cliques
   class Error < StandardError; end
