@@ -46,12 +46,12 @@ class DeveloperGraph
     AppLogger.debug "REMAINING DEVS: #{remaining_devs}"
     remaining_devs.each do |related_developer|
 
-      unless (organizations(current_developer) & organizations(related_developer)).empty?
+      if (@github_client.organizations(current_developer) & @github_client.organizations(related_developer)).any?
         # create a bidirectional node
-
+        developers_graph.add_edge current_developer, related_developer
       end
     end
-
+    developers_graph
   end
 
 
