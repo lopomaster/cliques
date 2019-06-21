@@ -11,7 +11,7 @@ class Cliques
   end
 
   def connections
-    DeveloperGraph.new  @developers,TwitterService.get,GithubService.new
+    DeveloperGraph.new  @developers,TwitterService.new,GithubService.new
   end
 
   private
