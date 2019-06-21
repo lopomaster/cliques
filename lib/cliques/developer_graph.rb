@@ -1,0 +1,62 @@
+require_relative '../../services/app_logger'
+require 'twitter'
+require 'octokit'
+require 'rgl/adjacency'
+
+class DeveloperGraph
+
+  attr_reader :developers
+
+  def initialize developers, twitter_client, github_client
+    @twitter_client = twitter_client
+    @github_client = github_client
+    @developers = developers
+    @graph = build_graph
+  end
+
+  private
+
+  def build_graph
+    excluded = []
+    developers_graph = RGL::DirectedAdjacencyGraph.new
+
+    promises = @developers.map do |current_developer|
+      excluded << current_developer
+      graph_by_developer developers_graph, current_developer, excluded
+    end
+
+    # Concurrent::Promise.all?(*promises).execute.wait!
+    developers_graph
+  end
+
+
+  def graph_by_developer developers_graph, current_developer, excluded
+    AppLogger.debug "GITHUB USER: #{current_developer}"
+    AppLogger.debug "ORGANIZATIONS: #{@github_client.organizations(current_developer)}"
+
+    graph_by_github_organization developers_graph, current_developer, excluded
+    # graph_by_twitter_organization developers_graph, current_developer, excluded
+
+  end
+
+
+
+
+  def graph_by_github_organization developers_graph, current_developer, remaining_devs
+    AppLogger.debug "REMAINING DEVS: #{remaining_devs}"
+    remaining_devs.each do |related_developer|
+
+      unless (organizations(current_developer) & organizations(related_developer)).empty?
+        # create a bidirectional node
+
+      end
+    end
+
+  end
+
+
+  def graph_by_twitter_organization developers_graph, current_developer, remaining_devs
+
+  end
+
+end

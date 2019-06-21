@@ -1,5 +1,5 @@
 
-require_relative 'cliques/connected_developers'
+require_relative 'cliques/developer_graph'
 require_relative '../services/twitter_service'
 require_relative '../services/github_service'
 
@@ -7,6 +7,11 @@ class Cliques
 
   def initialize file
     @file = file
+    @developers = read_file
+  end
+
+  def connections
+    DeveloperGraph.new  @developers,TwitterService.get,GithubService.get
   end
 
   private
