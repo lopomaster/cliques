@@ -14,12 +14,15 @@ class MaximalCliques
   private
   # https://www.youtube.com/watch?v=132XR-RLNoY
 
+
   # Bron-Kerbosch Algorithm with Pivoting
-  # @param result
+  # @param graph
+  # is the graph
+  # @param set
   # is the set with the nodes of a maximal clique
-  # @param possibles
-  # is the set of the possible nodes to look
-  # @param excluded
+  # @param points
+  # is the set of nodes to analyse
+  # @param exclude
   # is the set of the excluded nodes
 
   def bron_kerbosch(graph, set, points, exclude)
