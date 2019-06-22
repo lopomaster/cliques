@@ -3,10 +3,11 @@ require 'concurrent'
 require 'twitter'
 require 'octokit'
 require 'rgl/adjacency'
+require_relative 'maximal_cliques'
 
 class DeveloperGraph
 
-  attr_reader :developers
+  attr_reader :developers, :graph
 
   def initialize developers, twitter_client, github_client
     @twitter_client = twitter_client
@@ -16,14 +17,15 @@ class DeveloperGraph
   end
 
   def maximal_cliques
-    MaximalCliques.new( @graph).max_cliques
+    max_cliques = MaximalCliques.new( @graph)
+    max_cliques.max_cliques
   end
 
   private
 
   def build_graph
     excluded = []
-    developers_graph = RGL::DirectedAdjacencyGraph.new
+    developers_graph = RGL::AdjacencyGraph.new
 
     promises = @developers.map do |current_developer|
       excluded << current_developer
@@ -37,10 +39,11 @@ class DeveloperGraph
 
   def graph_by_developer developers_graph, current_developer, excluded
     AppLogger.debug "USER: #{current_developer}"
+    remainig_devs = @developers - excluded
     Concurrent::Promise.new {
-      graph_by_github_organization developers_graph, current_developer, @developers - excluded
+      graph_by_github_organization developers_graph, current_developer, remainig_devs
     }.then { |developers_graph|
-      graph_by_twitter_organization developers_graph, current_developer, @developers - excluded
+      graph_by_twitter_organization developers_graph, current_developer, remainig_devs
     }
   end
 

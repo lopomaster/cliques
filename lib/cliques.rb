@@ -15,7 +15,7 @@ class Cliques
   end
 
   def maximal_cliques
-
+    connections.maximal_cliques
   end
 
   private

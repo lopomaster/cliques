@@ -28,7 +28,7 @@ class TwitterService
 
   def get_friends user
     friends = {
-        "schneems" => ["jhawthorn", "jonleighton"],
+        "schneems" => ["jhawthorn", "jonleighton", "kaspth"],
         "jhawthorn" => ["jonleighton", "kaspth"],
         "jonleighton" => ["kaspth"],
         "kaspth" => [],
