@@ -11,7 +11,38 @@ class TwitterService
   end
 
   def twitter_friendships developer
-    @client.friends(developer) & @client.followers(developer)
+    # @client.friends(developer) & @client.followers(developer)
+    get_friends developer
   end
+
+  private
+
+  def friends user_name
+    @twitter_client.friends(user_name).entries.map{ |user| user.screen_name }
+  end
+
+  def followers user_name
+    @twitter_client.followers(user_name).entries.map{ |user| user.screen_name }
+  end
+
+
+  def get_friends user
+    friends = {
+        "schneems" => ["jhawthorn", "jonleighton"],
+        "jhawthorn" => ["jonleighton", "kaspth"],
+        "jonleighton" => ["kaspth"],
+        "kaspth" => [],
+        "lopomaster" => []
+    }
+
+    # schneems
+    # jhawthorn
+    # jonleighton
+    # kaspth
+    # lopomaster
+
+    friends[user]
+  end
+
 
 end

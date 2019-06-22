@@ -11,7 +11,11 @@ class Cliques
   end
 
   def connections
-    DeveloperGraph.new  @developers,TwitterService.new,GithubService.new
+    @connections = DeveloperGraph.new  @developers,TwitterService.new,GithubService.new
+  end
+
+  def maximal_cliques
+
   end
 
   private
