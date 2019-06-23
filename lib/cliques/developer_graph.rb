@@ -52,7 +52,7 @@ class DeveloperGraph
   def github_graph developers_graph, current_developer, remaining_devs
     remaining_devs.each do |related_developer|
 
-      if (@github_client.organizations(current_developer) & @github_client.organizations(related_developer)).any?
+      if @github_client.github_organizations_friendships(current_developer, related_developer).any?
         # create a bidirectional node
         developers_graph.add_edge current_developer, related_developer
       else

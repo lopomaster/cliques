@@ -30,9 +30,9 @@ describe DeveloperGraph do
         "kaspth" => ["rails"]
     }
 
-    github = double("GithubService", organizations: [])
+    github = double("GithubService", github_organizations_friendships: [])
 
-    allow(github).to receive(:organizations) do |user_name|
+    allow(github).to receive(:github_organizations_friendships) do |user_name|
       organizations[user_name]
     end
 

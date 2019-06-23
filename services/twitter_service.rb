@@ -26,15 +26,15 @@ class TwitterService
   end
 
   # Mock
-  def get_friends user
-    friends = {
-        "schneems" => ["jhawthorn", "jonleighton"],
-        "jhawthorn" => ["jonleighton", "kaspth"],
-        "jonleighton" => ["kaspth"],
-        "kaspth" => [],
-        "lopomaster" => []
-    }
-    friends[user]
-  end
+  # def get_friends user
+  #   friends = {
+  #       "schneems" => ["jhawthorn", "jonleighton"],
+  #       "jhawthorn" => ["jonleighton", "kaspth"],
+  #       "jonleighton" => ["kaspth"],
+  #       "kaspth" => [],
+  #       "lopomaster" => []
+  #   }
+  #   friends[user]
+  # end
 
 end
