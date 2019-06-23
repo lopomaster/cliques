@@ -6,18 +6,18 @@ require_relative '../../lib/cliques'
 describe Cliques do
 
   twitter_friendships = {
-          "schneems" => ["jhawthorn", "jonleighton"],
-          "jhawthorn" => ["jonleighton", "kaspth"],
-          "jonleighton" => ["kaspth"],
-          "kaspth" => []
-      }
+      "schneems" => ["jhawthorn", "jonleighton"],
+      "jhawthorn" => ["jonleighton", "kaspth"],
+      "jonleighton" => ["kaspth"],
+      "kaspth" => []
+  }
 
-  organizations =
-    {   "schneems" => ["rails", "github"],
-        "jhawthorn" => ["rails"],
-        "jonleighton" => ["rails"],
-        "kaspth" => ["rails"]
-    }
+  organizations = {
+      "schneems" => ["rails", "github"],
+      "jhawthorn" => ["rails"],
+      "jonleighton" => ["rails"],
+      "kaspth" => ["rails"]
+  }
 
   let(:connection) do
     DeveloperGraph.new  ["schneems", "jhawthorn", "jonleighton", "kaspth"], TwitterService.new, GithubService.new
@@ -44,7 +44,7 @@ describe Cliques do
 
   context 'read users file' do
     it 'array of usernames' do
-      cliques = Cliques.new read_file('test_data.txt')
+      cliques = Cliques.new filename('test_data.txt')
       expect(cliques.developers).to eq(["schneems", "jhawthorn", "jonleighton", "kaspth"])
     end
   end
