@@ -5,37 +5,46 @@ require_relative '../../lib/cliques'
 
 describe Cliques do
 
-  twitter_friendships = {
+  let(:twitter_client) do
+    friends_and_followers = {
       "schneems" => ["jhawthorn", "jonleighton"],
       "jhawthorn" => ["jonleighton", "kaspth"],
       "jonleighton" => ["kaspth"],
       "kaspth" => []
-  }
+    }
 
-  organizations = {
-      "schneems" => ["rails", "github"],
-      "jhawthorn" => ["rails"],
-      "jonleighton" => ["rails"],
-      "kaspth" => ["rails"]
-  }
+    twitter_double = double("TwitterService", twitter_friendships: [])
+
+    allow(twitter_double).to receive(:twitter_friendships) do |user_name|
+      friends_and_followers[user_name]
+    end
+
+    twitter_double
+  end
+
+  let(:github_client) do
+    organizations = {
+        "schneems" => ["rails", "github"],
+        "jhawthorn" => ["rails"],
+        "jonleighton" => ["rails"],
+        "kaspth" => ["rails"]
+    }
+
+    github = double("GithubService", organizations: [])
+
+    allow(github).to receive(:organizations) do |user_name|
+      organizations[user_name]
+    end
+
+    github
+  end
 
   let(:connection) do
-    DeveloperGraph.new  ["schneems", "jhawthorn", "jonleighton", "kaspth"], TwitterService.new, GithubService.new
+    DeveloperGraph.new  ["schneems", "jhawthorn", "jonleighton", "kaspth"], twitter_client, github_client
   end
 
   context 'get maximal cliques' do
     it 'calculates from fake developers usernames' do
-      github_double = double("GithubService", organizations: [])
-      allow(github_double).to receive(:organizations) do |user_name|
-        organizations[user_name]
-      end
-
-      twitter_double = double("TwitterhubService", twitter_friendships: [])
-      allow(twitter_double).to receive(:twitter_double) do |user_name|
-        twitter_friendships[user_name]
-      end
-
-
       allow_any_instance_of(Cliques).to receive(:connections).and_return(connection)
       cliques = Cliques.new filename('test_data.txt')
       expect(cliques.maximal_cliques).to eq( [["schneems", "jhawthorn", "jonleighton"], ["jhawthorn", "jonleighton", "kaspth"]])

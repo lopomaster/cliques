@@ -39,7 +39,6 @@ class DeveloperGraph
     developers_graph
   end
 
-
   def graph_by_developer developers_graph, current_developer, excluded
     AppLogger.debug "USER: #{current_developer}"
     remainig_devs = @developers - excluded
@@ -51,7 +50,6 @@ class DeveloperGraph
   end
 
   def github_graph developers_graph, current_developer, remaining_devs
-    AppLogger.debug "REMAINING DEVS: #{remaining_devs}"
     remaining_devs.each do |related_developer|
 
       if (@github_client.organizations(current_developer) & @github_client.organizations(related_developer)).any?
@@ -66,7 +64,6 @@ class DeveloperGraph
 
 
   def twitter_graph developers_graph, current_developer, remaining_devs
-    AppLogger.debug "REMAINING DEVS: #{remaining_devs}"
     remaining_devs.each do |related_developer|
       if @twitter_client.twitter_friendships(current_developer).include? related_developer
         # create a bidirectional node
