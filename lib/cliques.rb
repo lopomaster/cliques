@@ -5,13 +5,15 @@ require_relative '../services/github_service'
 
 class Cliques
 
+  attr_reader :developers
+
   def initialize file
     @file = file
     @developers = read_file
   end
 
   def connections
-    @connections = DeveloperGraph.new  @developers,TwitterService.new,GithubService.new
+    DeveloperGraph.new  @developers,TwitterService.new,GithubService.new
   end
 
   def maximal_cliques

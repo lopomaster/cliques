@@ -13,11 +13,14 @@ class DeveloperGraph
     @twitter_client = twitter_client
     @github_client = github_client
     @developers = developers
-    @graph = build_graph
+  end
+
+  def graph
+    @graph ||= build_graph
   end
 
   def maximal_cliques
-    max_cliques = MaximalCliques.new( @graph)
+    max_cliques = MaximalCliques.new( graph)
     max_cliques.max_cliques
   end
 
@@ -41,13 +44,13 @@ class DeveloperGraph
     AppLogger.debug "USER: #{current_developer}"
     remainig_devs = @developers - excluded
     Concurrent::Promise.new {
-      graph_by_github_organization developers_graph, current_developer, remainig_devs
+      github_graph developers_graph, current_developer, remainig_devs
     }.then { |developers_graph|
-      graph_by_twitter_organization developers_graph, current_developer, remainig_devs
+      twitter_graph developers_graph, current_developer, remainig_devs
     }
   end
 
-  def graph_by_github_organization developers_graph, current_developer, remaining_devs
+  def github_graph developers_graph, current_developer, remaining_devs
     AppLogger.debug "REMAINING DEVS: #{remaining_devs}"
     remaining_devs.each do |related_developer|
 
@@ -62,7 +65,7 @@ class DeveloperGraph
   end
 
 
-  def graph_by_twitter_organization developers_graph, current_developer, remaining_devs
+  def twitter_graph developers_graph, current_developer, remaining_devs
     AppLogger.debug "REMAINING DEVS: #{remaining_devs}"
     remaining_devs.each do |related_developer|
       if @twitter_client.twitter_friendships(current_developer).include? related_developer

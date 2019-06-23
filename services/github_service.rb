@@ -2,8 +2,8 @@ require 'octokit'
 
 class GithubService
   def initialize
-    @client = Octokit::Client.new(:login => 'lopomaster', :password => 'ltrbl33ltrbl33')
-    # @client = Octokit::Client.new(access_token: ENV["GITHUB_ACCESS_TOKEN"])
+    # @client = Octokit::Client.new(login: ENV["GITHUB_LOGIN"], password: ENV["GITHUB_PASSWORD"])
+    @client = Octokit::Client.new(access_token: ENV["GITHUB_ACCESS_TOKEN"])
   end
 
   def organizations user_name

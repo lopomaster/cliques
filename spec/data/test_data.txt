@@ -2,4 +2,3 @@ schneems
 jhawthorn
 jonleighton
 kaspth
-lopomaster
