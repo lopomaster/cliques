@@ -4,8 +4,8 @@ Gem::Specification.new do |spec|
   spec.version       = "1.0.0"
   spec.authors       = ["manuel"]
   spec.email         = ["lopez.urbina.manuel@gmail.com"]
-  spec.summary       = "Write a short summary, because RubyGems requires one."
-  spec.description   = "Write a longer description or delete this line."
+  spec.summary       = "Given a list of developer handles, find all the groups of “fully connected” developers."
+  spec.description   = "Two given developers are considered connected if: (1) They follow each other in twitter. (2) They have a Github organization in common."
   spec.files         = Dir['lib/*', 'lib/*/*', 'services/*']
 
   spec.add_development_dependency "bundler", "~> 2.0"
