@@ -9,8 +9,7 @@ describe Cliques do
           "schneems" => ["jhawthorn", "jonleighton"],
           "jhawthorn" => ["jonleighton", "kaspth"],
           "jonleighton" => ["kaspth"],
-          "kaspth" => [],
-          "lopomaster" => []
+          "kaspth" => []
       }
 
   organizations =
