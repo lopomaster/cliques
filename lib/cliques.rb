@@ -2,6 +2,7 @@
 require_relative 'cliques/developer_graph'
 require_relative '../services/twitter_service'
 require_relative '../services/github_service'
+require 'dotenv/load'
 
 class Cliques
 
